@@ -8,6 +8,8 @@
   <!-- load in the scientific statements js-->
   <script src="stimuli/shtulman_2012_scientific_statements.js"></script>
   <link href="https://unpkg.com/jspsych@8.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+  <!-- This is for data storage - please be sure to keep this script in all future updates to the code!! -->
+  <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
 </head>
 
 <body></body>
@@ -15,10 +17,14 @@
 
   /* initialize jsPsych */
   var jsPsych = initJsPsych({
-  on_finish: function() {
-    jsPsych.data.displayData();
-  }
-});
+    on_finish: function () {
+      jsPsych.data.displayData();
+    }
+  });
+
+  //TO DO: set filename based on participant info entered
+  const random_id = jsPsych.randomization.randomID(10);
+  const filename = `${random_id}.csv`;
 
   /* create timeline */
   var timeline = [];
@@ -47,18 +53,30 @@
   // here's how we can construct a simple reaction time trial
   // TO DO: what else do we need to add to the trial procedure? What other information should we store? How can we turn this into a complete experiment timeline?
   var trial = {
-        type: jsPsychHtmlKeyboardResponse,
-        prompt: "<p>Press z if the statement is true, m if the statement is false.<\p>",
-        choices: ["z", "m"],
-        // store elements from the stimulus item
-        data: { 
-          Category: stimulus_item['Category']
-        },
-        // format the statement a bit using html
-        stimulus: "<b><font size=6>"+stimulus_item['Statement']+"</font></b>"
-      }
+    type: jsPsychHtmlKeyboardResponse,
+    prompt: "<p>Press z if the statement is true, m if the statement is false.<\p>",
+    choices: ["z", "m"],
+    // store elements from the stimulus item
+    data: {
+      Category: stimulus_item['Category']
+    },
+    // format the statement a bit using html
+    stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>"
+  }
 
   timeline.push(trial);
+
+  //PLEASE KEEP FOR ALL FUTURE ITERATIONS
+  //this portion of the code ensures that the data gets sent to be stored on OSF
+  const save_data = {
+    type: jsPsychPipe,
+    action: "save",
+    experiment_id: "RR3909lc0IJs",
+    filename: filename,
+    data_string: () => jsPsych.data.get().csv()
+  };
+  timeline.push(save_data);
+  //PLEASE KEEP FOR ALL FUTURE ITERATIONS
 
 
   /* start the experiment */
