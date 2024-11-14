@@ -167,14 +167,6 @@ var reflection2 = {
 
 timeline.push(reflection2);
 
-/* Debrief trial */
-var debrief = {
-type: jsPsychHtmlKeyboardResponse,
-stimulus: "<p style='color: #E6E8FA;'>Thank you for participating!</p>" +
-"<p style='color: #E6E8FA;'>The purpose of this experiment was to help understand how naives theories coexist with scientific knowledge!</p>"
-};
-timeline.push(debrief);
-
 
   // var trial = {
   //       type: jsPsychHtmlKeyboardResponse,
@@ -201,6 +193,14 @@ timeline.push(debrief);
   };
   timeline.push(save_data);
   //PLEASE KEEP FOR ALL FUTURE ITERATIONS
+
+  /* Debrief trial */
+var debrief = {
+type: jsPsychHtmlKeyboardResponse,
+stimulus: "<p style='color: #E6E8FA;'>Thank you for participating!</p>" +
+"<p style='color: #E6E8FA;'>The purpose of this experiment was to help understand how naives theories coexist with scientific knowledge!</p>"
+};
+timeline.push(debrief);
 
 
   // /* start the experiment */
