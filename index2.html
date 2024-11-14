@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>My experiment</title>
+  <script src="https://unpkg.com/jspsych@8.0.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.0.0"></script>
+
+  <script src="stimuli/shtulman_2012_scientific_statements.js"></script>
+  <script src="stimuli/Astronomy_block.js"></script>
+
+  <script src="https://unpkg.com/@jspsych/plugin-survey-text@2.0.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-fullscreen@1.2.1"></script>
+  <link href="https://unpkg.com/jspsych@8.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body></body>
+<script>
+
+/* initialize jsPsych */
+  var jsPsych = initJsPsych({
+  show_progress_bar: true,
+  on_finish: function() {
+    jsPsych.data.displayData();
+  }
+});
+
+/* create timeline */
+  var timeline = [];
+
+//enter fullscreen mode
+timeline.push({
+  type: jsPsychFullscreen,
+  fullscreen_mode: true
+});
+
+timeline.push({
+  type: jsPsychHtmlKeyboardResponse,
+  stimulus: 'This trial will be in fullscreen mode. Press any key to begin.',
+  post_trial_gap:500
+});
+
+// define welcome message trial
+  var welcome = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: "Welcome to the experiment. Press any key to begin.", 
+    post_trial_gap:500
+  };
+
+// add the welcome trial to the timeline variable
+  timeline.push(welcome);
+  
+// create a short survey to collect a participant identifier
+var participant_id_entry = {
+   type: jsPsychSurveyText,
+   questions: [{ prompt: "Please enter your participant ID (e.g. p1):", name: "participant_id" }],
+   post_trial_gap:500,
+   on_finish: function (data) {
+     console.log(data.response)
+     jsPsych.data.addProperties({
+       participant: data.response.participant_id
+     });
+   }
+ };
+
+ timeline.push(participant_id_entry);
+
+ /* Instructions so participants understand*/
+var instructions = {
+type: jsPsychHtmlKeyboardResponse,
+stimulus: "<p>Welcome to the experiment!</p>" +
+"<p>In this task, you will see a series of scientific statements.</p>" +
+"<p>Your job is to decide whether each statement is true or false.</p>" +
+"<p>Press 'z' if you think the statement is true and 'm' if you think it is false.</p>" +
+"<p>Press any key to begin.</p>"
+};
+timeline.push(instructions);
+
+
+
+  /* load in stimulus list */
+  // IDEA: convert the csv to json format and store that item as a variable in .js code (loaded above)
+  // each element in the variable scientific statements is one row in the csv, structured as an Object/ dictionary
+  // you can view the structure by looking in the console
+ //* console.log(scientific_statements)
+  // MAIN TO DO: How can we systematically randomize all stimuli?
+
+ 
+  var Astronomy=
+    {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: "<b><font size=30>"+ '<p>Astronomy Statements</p>',
+    stimulus_duration:1000,
+    };
+    timeline.push(Astronomy);
+
+   /* loop through each statement and create a trial */
+  //let's store one of these elements
+  console.log(Astronomy_block)
+  stimulus_item = Astronomy_block[0]
+  console.log(stimulus_item)
+
+ Astronomy_block = jsPsych.randomization.shuffle(Astronomy_block);
+
+ Astronomy_block.forEach(function(stimulus_item) {
+
+    var Astronomy_trial={
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
+    prompt:"<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
+    choices: ["z", "m"],
+    data: {
+Category: stimulus_item['Category'],
+Concept: stimulus_item['Concept'],
+CorrectAnswer:stimulus_item['T1'] // Assuming 'T1' contains the correct answer ('T' for true, 'F' for false)
+    },
+    on_finish: function(data) { 
+// Store if the response is correct
+var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
+data.correct = data.response === correctKey;
+    
+}
+
+  
+  //This is what the stimulus item now looks like )check the console to confirm
+  // {
+  //   "Category": "Astronomy",
+  //   "Concept": "Planet",
+  //   "T1": "T",
+  //   "T2": "T",
+  //   "Statement": "Planets are more massive than moons.",
+  //   "M proportion correct": 0.83,
+  //   "M response time (ms)": 3943
+  // }
+
+  // here's how we can construct a simple reaction time trial
+  // TO DO: what else do we need to add to the trial procedure? What other information should we store? How can we turn this into a complete experiment timeline?
+}
+timeline.push(Astronomy_trial);
+ });
+
+
+
+
+// ask participant questions about the experiment
+var reflection1 = {
+  type: jsPsychSurveyText,
+  questions: [{ prompt: "After completing these tasks, what do you believe the purpose of this experiment is?", name: "reflection1"}],
+  on_finish: function(data) {
+    console.log(data.response)
+    jsPsych.data.addProperties({
+      participant: data.response.reflection1
+    });
+  }
+};
+
+
+timeline.push(reflection1);
+
+// Ask about technical difficulties
+var reflection2 = {
+  type: jsPsychSurveyText,
+  questions: [{ prompt: "Did you experience any technical issues while completing the tasks?", name: "reflection2"}],
+  on_finish: function(data) {
+    console.log(data.response)
+    jsPsych.data.addProperties({
+      participant: data.response.reflection2
+    });
+  }
+};
+
+
+timeline.push(reflection2);
+
+/* Debrief trial */
+var debrief = {
+type: jsPsychHtmlKeyboardResponse,
+stimulus: "<p style='color: #E6E8FA;'>Thank you for participating!</p>" +
+"<p style='color: #E6E8FA;'>The purpose of this experiment was to help understand how naives theories coexist with scientific knowledge!</p>"
+};
+timeline.push(debrief);
+
+
+  // var trial = {
+  //       type: jsPsychHtmlKeyboardResponse,
+  //       prompt: "<p>Press z if the statement is true, m if the statement is false.<\p>",
+  //       choices: ["z", "m"],
+  //       // store elements from the stimulus item
+  //       data: { 
+  //         Category: stimulus_item['Category']
+  //       },
+  //       // format the statement a bit using html
+  //       stimulus: "<b><font size=6>"+stimulus_item['Statement']+"</font></b>"
+  //     }
+
+  // timeline.push(trial);
+
+
+  // /* start the experiment */
+  jsPsych.run(timeline);
+
+</script>
+
+</html>
