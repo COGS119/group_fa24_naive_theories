@@ -143,9 +143,8 @@ var reflection1 = {
   questions: [{ prompt: "After completing these tasks, what do you believe the purpose of this experiment is?", name: "reflection1"}],
   on_finish: function(data) {
     console.log(data.response)
-    jsPsych.data.addProperties({
-      participant: data.response.reflection1
-    });
+    //add the response as an unnested column
+    data.reflection1 = data.response.reflection1
   }
 };
 
@@ -157,23 +156,13 @@ var reflection2 = {
   type: jsPsychSurveyText,
   questions: [{ prompt: "Did you experience any technical issues while completing the tasks?", name: "reflection2"}],
   on_finish: function(data) {
-    console.log(data.response)
-    jsPsych.data.addProperties({
-      participant: data.response.reflection2
-    });
+    //add the response as an unnested column
+    data.reflection2 = data.response.reflection2
   }
 };
 
 
 timeline.push(reflection2);
-
-/* Debrief trial */
-var debrief = {
-type: jsPsychHtmlKeyboardResponse,
-stimulus: "<p style='color: #E6E8FA;'>Thank you for participating!</p>" +
-"<p style='color: #E6E8FA;'>The purpose of this experiment was to help understand how naives theories coexist with scientific knowledge!</p>"
-};
-timeline.push(debrief);
 
 
   // var trial = {
@@ -201,6 +190,14 @@ timeline.push(debrief);
   };
   timeline.push(save_data);
   //PLEASE KEEP FOR ALL FUTURE ITERATIONS
+
+  /* Debrief trial */
+var debrief = {
+type: jsPsychHtmlKeyboardResponse,
+stimulus: "<p style='color: #E6E8FA;'>Thank you for participating!</p>" +
+"<p style='color: #E6E8FA;'>The purpose of this experiment was to help understand how naives theories coexist with scientific knowledge!</p>"
+};
+timeline.push(debrief);
 
 
   // /* start the experiment */
