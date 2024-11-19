@@ -98,388 +98,120 @@ timeline.push(instructions);
   // MAIN TO DO: How can we systematically randomize all stimuli?
 
 
-  var blocks=[];
-
-    var Astronomy= 
+  var blocks = [
     {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=30>"+ '<p>Astronomy Statements</p>',
-    stimulus_duration:1000,
-    };
-    blocks.push(Astronomy);
-
-   /* loop through each statement and create a trial */
-  //let's store one of these elements
-  console.log(Astronomy_block)
-  stimulus_item = Astronomy_block[0]
-  console.log(stimulus_item)
-
- Astronomy_block = jsPsych.randomization.shuffle(Astronomy_block);
-
- Astronomy_block.forEach(function(stimulus_item) {
-
-    var Astronomy_trial={
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
-    prompt:"<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
-    choices: ["z", "m"],
-    data: {
-Category: stimulus_item['Category'],
-Concept: stimulus_item['Concept'],
-CorrectAnswer:stimulus_item['T1'] // Assuming 'T1' contains the correct answer ('T' for true, 'F' for false)
+      name: "Astronomy",
+      stimuli: Astronomy_block,
+      header: "<p><b><font size=30>Astronomy Statements</font></b></p>"
     },
-    on_finish: function(data) { 
-// Store if the response is correct
-var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
-data.correct = data.response === correctKey;
-    
-}
-}
-blocks.push(Astronomy_trial);
- })
- var Evolution= 
     {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=30>"+ '<p>Evolution Statements</p>',
-    stimulus_duration:1000,
-    };
-    blocks.push(Evolution);
-
-   /* loop through each statement and create a trial */
-  //let's store one of these elements
-  console.log(Evolution_block)
-  stimulus_item = Evolution_block[0]
-  console.log(stimulus_item)
-
- Evolution_block = jsPsych.randomization.shuffle(Evolution_block);
-
- Evolution_block.forEach(function(stimulus_item) {
-
-    var Evolution_trial={
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
-    prompt:"<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
-    choices: ["z", "m"],
-    data: {
-Category: stimulus_item['Category'],
-Concept: stimulus_item['Concept'],
-CorrectAnswer:stimulus_item['T1'] // Assuming 'T1' contains the correct answer ('T' for true, 'F' for false)
+      name: "Evolution",
+      stimuli: Evolution_block,
+      header: "<p><b><font size=30>Evolution Statements</font></b></p>"
     },
-    on_finish: function(data) { 
-// Store if the response is correct
-var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
-data.correct = data.response === correctKey;
-    
-}
-}
-blocks.push(Evolution_trial);
- })
- var Fractions= 
     {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=30>"+ '<p>Fraction Statements</p>',
-    stimulus_duration:1000
-  }
-    blocks.push(Fractions);
-   /* loop through each statement and create a trial */
-  //let's store one of these elements
-  console.log(Fractions_block),
-  stimulus_item = Fractions_block[0],
-  console.log(stimulus_item),
-
- Fractions_block = jsPsych.randomization.shuffle(Fractions_block);
-
- Fractions_block.forEach(function(stimulus_item) {
-
-    var Fractions_trial={
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
-    prompt:"<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
-    choices: ["z", "m"],
-    data: {
-Category: stimulus_item['Category'],
-Concept: stimulus_item['Concept'],
-CorrectAnswer:stimulus_item['T1'] // Assuming 'T1' contains the correct answer ('T' for true, 'F' for false)
+      name: "Genetics",
+      stimuli: Genetics_block,
+      header: "<p><b><font size=30>Genetics Statements</font></b></p>"
     },
-    on_finish: function(data) { 
-// Store if the response is correct
-var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
-data.correct = data.response === correctKey;
-    
-}
-}
-blocks.push(Fractions_trial);
- })
- var Genetics= 
     {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=30>"+ '<p>Genetics Statements</p>',
-    stimulus_duration:1000,
+      name: "Fractions",
+      stimuli: Fractions_block,
+      header: "<p><b><font size=30>Fraction Statements</font></b></p>"
+    },
+    {
+      name: "Germs",
+      stimuli: Germs_block,
+      header: "<p><b><font size=30>Germs Statements</font></b></p>"
+    },
+    {
+      name: "Matter",
+      stimuli: Matter_block,
+      header: "<p><b><font size=30>Matter Statements</font></b></p>"
+    },
+    {
+      name: "Mechanics",
+      stimuli: Mechanics_block,
+      header: "<p><b><font size=30>Mechanics Statements</font></b></p>"
+    },
+    {
+      name: "Physiology",
+      stimuli: Physiology_block,
+      header: "<p><b><font size=30>Physiology Statements</font></b></p>"
+    },
+    {
+      name: "Thermodynamics",
+      stimuli: Thermodynamics_block,
+      header: "<p><b><font size=30>Thermodynamics Statements</font></b></p>"
+    },
+    {
+      name: "Waves",
+      stimuli: Waves_block,
+      header: "<p><b><font size=30>Waves Statements</font></b></p>"
     }
-    blocks.push(Genetics)
-   /* loop through each statement and create a trial */
-  //let's store one of these elements
-  console.log(Genetics_block)
-  stimulus_item = Genetics_block[0]
-  console.log(stimulus_item)
+  ];
 
- Genetics_block = jsPsych.randomization.shuffle(Genetics_block);
+  // Go over blocks and add them to the timeline
+  blocks.forEach(function(block) {
+    // Add block header
+    timeline.push({
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: block.header,
+      stimulus_duration: 1000
+    });
 
- Genetics_block.forEach(function(stimulus_item) {
+    // Randomize the stimuli within each block
+    var randomized_statements= jsPsych.randomization.shuffle(block.stimuli);
 
-    var Genetics_trial={
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
-    prompt:"<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
-    choices: ["z", "m"],
-    data: {
-Category: stimulus_item['Category'],
-Concept: stimulus_item['Concept'],
-CorrectAnswer:stimulus_item['T1'] // Assuming 'T1' contains the correct answer ('T' for true, 'F' for false)
-    },
-    on_finish: function(data) { 
-// Store if the response is correct
-var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
-data.correct = data.response === correctKey;
-    
-}
-}
-blocks.push(Genetics_trial);
- })
+    // Add shuffled blocks to the timeline
+    randomized_blocks.forEach(function(stimulus_item) {
+      var blocks_trial = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
+        prompt: "<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
+        choices: ["z", "m"],
+        data: {
+          Category: stimulus_item['Category'],
+          Concept: stimulus_item['Concept'],
+          CorrectAnswer: stimulus_item['T2'] // 'T2' contains the correct answer ('T' for true, 'F' for false)
+        },
+        on_finish: function(data) {
+          var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
+          data.correct = data.response === correctKey;
+        }
+      };
 
- var Germs= 
-    {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=30>"+ '<p>Germs Statements</p>',
-    stimulus_duration:1000,
+      // Push trial to the timeline
+      timeline.push(blocks_trial);
+    });
+  });
+
+  // Reflection questions
+  timeline.push({
+    type: jsPsychSurveyText,
+    questions: [{ prompt: "After completing these tasks, what do you believe the purpose of this experiment is?", name: "reflection1" }],
+    on_finish: function(data) {
+      console.log(data.response);
+      jsPsych.data.addProperties({ participant: data.response.reflection1 });
     }
-    blocks.push(Germs);
+  });
 
-   /* loop through each statement and create a trial */
-  //let's store one of these elements
-  console.log(Germs_block)
-  stimulus_item = Germs_block[0]
-  console.log(stimulus_item)
-
- Germs_block = jsPsych.randomization.shuffle(Germs_block);
-
- Germs_block.forEach(function(stimulus_item) {
-
-    var Germs_trial={
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
-    prompt:"<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
-    choices: ["z", "m"],
-    data: {
-Category: stimulus_item['Category'],
-Concept: stimulus_item['Concept'],
-CorrectAnswer:stimulus_item['T1'] // Assuming 'T1' contains the correct answer ('T' for true, 'F' for false)
-    },
-    on_finish: function(data) { 
-// Store if the response is correct
-var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
-data.correct = data.response === correctKey;
-    
-}}
-blocks.push(Germs_trial);
- })
-
- var Matter= 
-    {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=30>"+ '<p>Matter Statements</p>',
-    stimulus_duration:1000,
+  // Ask about technical difficulties
+  timeline.push({
+    type: jsPsychSurveyText,
+    questions: [{ prompt: "Did you experience any technical issues while completing the tasks?", name: "reflection2" }],
+    on_finish: function(data) {
+      console.log(data.response);
+      jsPsych.data.addProperties({ participant: data.response.reflection2 });
     }
-    blocks.push(Matter);
+  });
 
-
-   /* loop through each statement and create a trial */
-  //let's store one of these elements
-  console.log(Matter_block)
-  stimulus_item = Matter_block[0]
-  console.log(stimulus_item)
-
- Matter_block = jsPsych.randomization.shuffle(Matter_block);
-
- Matter_block.forEach(function(stimulus_item) {
-
-    var Matter_trial={
+  // Debrief
+  timeline.push({
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
-    prompt:"<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
-    choices: ["z", "m"],
-    data: {
-Category: stimulus_item['Category'],
-Concept: stimulus_item['Concept'],
-CorrectAnswer:stimulus_item['T1'] // Assuming 'T1' contains the correct answer ('T' for true, 'F' for false)
-    },
-    on_finish: function(data) { 
-// Store if the response is correct
-var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
-data.correct = data.response === correctKey;
-    
-}
-}
-blocks.push(Matter_trial);
- }) 
-
- var Mechanics= 
-    {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=30>"+ '<p>Mechanics Statements</p>',
-    stimulus_duration:1000,
-    }
-    blocks.push(Mechanics);
-
-
-   /* loop through each statement and create a trial */
-  //let's store one of these elements
-  console.log(Mechanics_block)
-  stimulus_item = Mechanics_block[0]
-  console.log(stimulus_item)
-
- Mechanics_block = jsPsych.randomization.shuffle(Mechanics_block);
-
- Mechanics_block.forEach(function(stimulus_item) {
-
-    var Mechanics_trial={
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
-    prompt:"<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
-    choices: ["z", "m"],
-    data: {
-Category: stimulus_item['Category'],
-Concept: stimulus_item['Concept'],
-CorrectAnswer:stimulus_item['T1'] // Assuming 'T1' contains the correct answer ('T' for true, 'F' for false)
-    },
-    on_finish: function(data) { 
-// Store if the response is correct
-var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
-data.correct = data.response === correctKey;
-    
-}
-}
-blocks.push(Mechanics_trial);
- })
- var Physiology= {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=30>"+ '<p>Physiology Statements</p>',
-    stimulus_duration:1000,
-    }
-    blocks.push(Physiology);
-
-   /* loop through each statement and create a trial */
-  //let's store one of these elements
-  console.log(Physiology_block)
-  stimulus_item = Physiology_block[0]
-  console.log(stimulus_item)
-    
-
- Physiology_block = jsPsych.randomization.shuffle(Physiology_block);
-
- Physiology_block.forEach(function(stimulus_item) {
-var Physiology_trial = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
-    prompt:"<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
-    choices: ["z", "m"],
-    data: {
-Category: stimulus_item['Category'],
-Concept: stimulus_item['Concept'],
-CorrectAnswer:stimulus_item['T1'] // Assuming 'T1' contains the correct answer ('T' for true, 'F' for false)
-    },
-    on_finish: function(data) { 
-// Store if the response is correct
-var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
-data.correct = data.response === correctKey;
-    
-}
-}
- });
- 
-
-blocks.push(Physiology);
-
- var Thermodynamics= 
-    {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=30>"+ '<p>Thermodynamics Statements</p>',
-    stimulus_duration:1000,
-    }
-    blocks.push(Thermodynamics);
-
-
-   /* loop through each statement and create a trial */
-  //let's store one of these elements
-  console.log(Thermodynamics_block)
-  stimulus_item = Thermodynamics_block[0]
-  console.log(stimulus_item)
-
- Thermodynamics_block = jsPsych.randomization.shuffle(Thermodynamics_block);
-
- Thermodynamics_block.forEach(function(stimulus_item) {
-
-    var Thermodynamics_trial={
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
-    prompt:"<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
-    choices: ["z", "m"],
-    data: {
-Category: stimulus_item['Category'],
-Concept: stimulus_item['Concept'],
-CorrectAnswer:stimulus_item['T1'] // Assuming 'T1' contains the correct answer ('T' for true, 'F' for false)
-    },
-    on_finish: function(data) { 
-// Store if the response is correct
-var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
-data.correct = data.response === correctKey;
-    
-}
-}
-blocks.push(Thermodynamics_trial);
- })
- var Waves= 
-    {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=30>"+ '<p>Waves Statements</p>',
-    stimulus_duration:1000,
-    }
-    blocks.push(Waves);
-
-   /* loop through each statement and create a trial */
-  //let's store one of these elements
-  console.log(Waves_block)
-  stimulus_item = Waves_block[0]
-  console.log(stimulus_item)
-
- Waves_block = jsPsych.randomization.shuffle(Waves_block);
-
- Waves_block.forEach(function(stimulus_item) {
-
-    var Waves_trial={
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
-    prompt:"<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
-    choices: ["z", "m"],
-    data: {
-Category: stimulus_item['Category'],
-Concept: stimulus_item['Concept'],
-CorrectAnswer:stimulus_item['T1'] // Assuming 'T1' contains the correct answer ('T' for true, 'F' for false)
-    },
-    on_finish: function(data) { 
-// Store if the response is correct
-var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
-data.correct = data.response === correctKey;
-    
-}
-}
-blocks.push(Waves_trial)
- });
-
-timeline.push(blocks);
-
- 
-
+    stimulus: "<p style='color: #E6E8FA;'>Thank you for participating!</p>" +
+              "<p style='color: #E6E8FA;'>The purpose of this experiment was to help understand how naïve theories coexist with scientific knowledge!</p>"
+  });
 
 
 // ask participant questions about the experiment
@@ -518,21 +250,6 @@ stimulus: "<p style='color: #E6E8FA;'>Thank you for participating!</p>" +
 "<p style='color: #E6E8FA;'>The purpose of this experiment was to help understand how naives theories coexist with scientific knowledge!</p>"
 };
 timeline.push(debrief);
-
-
-  // var trial = {
-  //       type: jsPsychHtmlKeyboardResponse,
-  //       prompt: "<p>Press z if the statement is true, m if the statement is false.<\p>",
-  //       choices: ["z", "m"],
-  //       // store elements from the stimulus item
-  //       data: { 
-  //         Category: stimulus_item['Category']
-  //       },
-  //       // format the statement a bit using html
-  //       stimulus: "<b><font size=6>"+stimulus_item['Statement']+"</font></b>"
-  //     }
-
-  // timeline.push(trial);
 
 
   // /* start the experiment */
