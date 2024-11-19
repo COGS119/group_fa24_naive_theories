@@ -134,7 +134,7 @@ var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
 data.correct = data.response === correctKey;
 }
 };
-timeline.push(trial);
+//timeline.push(trial);
 });
 
 // ask participant questions about the experiment
@@ -143,9 +143,8 @@ var reflection1 = {
   questions: [{ prompt: "After completing these tasks, what do you believe the purpose of this experiment is?", name: "reflection1"}],
   on_finish: function(data) {
     console.log(data.response)
-    jsPsych.data.addProperties({
-      participant: data.response.reflection1
-    });
+    //add the response as an unnested column
+    data.reflection1 = data.response.reflection1
   }
 };
 
@@ -157,10 +156,8 @@ var reflection2 = {
   type: jsPsychSurveyText,
   questions: [{ prompt: "Did you experience any technical issues while completing the tasks?", name: "reflection2"}],
   on_finish: function(data) {
-    console.log(data.response)
-    jsPsych.data.addProperties({
-      participant: data.response.reflection2
-    });
+    //add the response as an unnested column
+    reflection2: data.response.reflection2
   }
 };
 
