@@ -134,7 +134,7 @@ var correctKey = data.CorrectAnswer === "T" ? "z" : "m";
 data.correct = data.response === correctKey;
 }
 };
-//timeline.push(trial);
+timeline.push(trial);
 });
 
 // ask participant questions about the experiment
@@ -157,7 +157,7 @@ var reflection2 = {
   questions: [{ prompt: "Did you experience any technical issues while completing the tasks?", name: "reflection2"}],
   on_finish: function(data) {
     //add the response as an unnested column
-    reflection2: data.response.reflection2
+    data.reflection2 = data.response.reflection2
   }
 };
 
