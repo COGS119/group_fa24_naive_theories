@@ -1,5 +1,6 @@
 //array of scientific statements
-var scientific_statements = [
+var scientific_statements_dictionary = {
+  "Astronomy": [
   {
     "Category": "Astronomy",
     "Concept": "Planet",
@@ -179,7 +180,8 @@ var scientific_statements = [
     "Statement": "The earth's tilt causes the seasons.",
     "M proportion correct": 0.75,
     "M response time (ms)": 3590
-  },
+  }],
+  "Evolution": [
   {
     "Category": "Evolution",
     "Concept": "Common ancestry",
@@ -359,7 +361,8 @@ var scientific_statements = [
     "Statement": "Computer viruses evolve.",
     "M proportion correct": 0.48,
     "M response time (ms)": 3250
-  },
+  }],
+  "Fractions": [
   {
     "Category": "Fractions",
     "Concept": "Addition",
@@ -539,7 +542,8 @@ var scientific_statements = [
     "Statement": "There are numbers between 1/3 and 1/2.",
     "M proportion correct": 0.93,
     "M response time (ms)": 3731
-  },
+  }],
+  "Genetics": [
   {
     "Category": "Genetics",
     "Concept": "Heritability",
@@ -719,7 +723,8 @@ var scientific_statements = [
     "Statement": "Viruses can change one's genome.",
     "M proportion correct": 0.53,
     "M response time (ms)": 3602
-  },
+  }],
+  "Germs": [
   {
     "Category": "Germs",
     "Concept": "Contagion",
@@ -899,7 +904,8 @@ var scientific_statements = [
     "Statement": "Germs have DNA.",
     "M proportion correct": 0.71,
     "M response time (ms)": 2639
-  },
+  }],
+  "Matter": [
   {
     "Category": "Matter",
     "Concept": "Mass",
@@ -1079,7 +1085,8 @@ var scientific_statements = [
     "Statement": "Atoms are mostly empty space.",
     "M proportion correct": 0.55,
     "M response time (ms)": 3537
-  },
+  }],
+  "Mechanics": [
   {
     "Category": "Mechanics",
     "Concept": "Force",
@@ -1259,7 +1266,8 @@ var scientific_statements = [
     "Statement": "Pointy objects fall through air faster than flat objects.",
     "M proportion correct": 0.68,
     "M response time (ms)": 4955
-  },
+  }],
+  "Physiology": [
   {
     "Category": "Physiology",
     "Concept": "Life",
@@ -1439,7 +1447,8 @@ var scientific_statements = [
     "Statement": "A baby can be an uncle or an aunt.",
     "M proportion correct": 0.81,
     "M response time (ms)": 4024
-  },
+  }],
+  "Thermodynamics": [
   {
     "Category": "Thermodynamics",
     "Concept": "Heat",
@@ -1619,7 +1628,8 @@ var scientific_statements = [
     "Statement": "Heat increases an object's size.",
     "M proportion correct": 0.58,
     "M response time (ms)": 3965
-  },
+  }],
+  "Waves": [
   {
     "Category": "Waves",
     "Concept": "Light",
@@ -1801,3 +1811,4 @@ var scientific_statements = [
     "M response time (ms)": 4978
   }
 ]
+}
