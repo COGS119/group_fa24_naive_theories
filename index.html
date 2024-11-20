@@ -89,6 +89,15 @@
   };
   timeline.push(instructions);
 
+  // press any key before starting experiment
+  var any_key = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: "Press any key to begin.",
+    post_trial_gap: 500
+  };
+
+  timeline.push(any_key);
+
   /* load in stimulus list */
   // IDEA: convert the csv to json format and store that item as a variable in .js code (loaded above)
   // each element in the variable scientific statements is one row in the csv, structured as an Object/ dictionary
@@ -129,7 +138,7 @@
     //block message
     var block_message = {
       type: jsPsychHtmlKeyboardResponse,
-      stimulus: "All of the next statements are in the category " + current_block_name,
+      stimulus: "<font size=5>All of the next statements are in the category: " + current_block_name + "</font>",
       post_trial_gap: 500
     };
 
@@ -150,6 +159,7 @@
         stimulus: "<b><font size=6>" + stimulus_item['Statement'] + "</font></b>",
         prompt: "<p>Press 'z' if the statement is true, 'm' if the statement is false.</p>",
         choices: ["z", "m"],
+        post_trial_gap: 500,
         data: {
           Category: stimulus_item['Category'],
           Concept: stimulus_item['Concept'],
