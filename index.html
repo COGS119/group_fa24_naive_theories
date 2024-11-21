@@ -127,11 +127,13 @@
     current_scientific_statements = scientific_statements_dictionary[current_block_name];
 
     //block message
-    var block_message = {
+     var block_message = {
       type: jsPsychHtmlKeyboardResponse,
-      stimulus: "<font size='5'>All of the next statements are in the category: " + current_block_name + "<br>Press any key to begin</font>",
-      post_trial_gap: 500
+      stimulus: "<p><font-size=8>All the following statements are in category:</font></p>" + "<b><font size=10><font color=blue>" + current_block_name + "</font></b>",
+      post_trial_gap: 500,
+      trial_duration: 1700
     };
+
 
     timeline.push(block_message);
     
