@@ -64,17 +64,18 @@
   timeline.push(welcome);
 
   // create a short survey to collect a participant identifier
-  var participant_id_entry = {
+  //forces participant response
+ var participant_id_entry = {
     type: jsPsychSurveyText,
-    questions: [{ prompt: "Please enter your participant ID (e.g. p1):", name: "participant_id" }],
-    post_trial_gap: 500,
+    questions:[{prompt: "Please enter your participant ID (e.g. p1):", name: "participant_id", placeholder: `p1`,required:true}],
+    post_trial_gap: 500,   
     on_finish: function (data) {
       console.log(data.response)
       jsPsych.data.addProperties({
         participant: data.response.participant_id
-      });
+      })
     }
-  };
+  }
 
   timeline.push(participant_id_entry);
 
