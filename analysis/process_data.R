@@ -7,11 +7,12 @@ processed_data_directory <- here("..","data","processed_data")
 file_name <- "naive_theories"
 
 #read experiment data
-exp_data <- read_csv(here(processed_data_directory,paste0(file_name,"-alldata.csv")))
+exp_data <- read_csv(here(processed_data_directory,paste0(file_name,"-alldata.csv"))) %>%
+  rename(participant_id=participant)
 
 #double check that participant ids are unique
 counts_by_random_id <- exp_data %>%
-  group_by(random_id,participant) %>%
+  group_by(random_id,participant_id) %>%
   count()
 #output to track participants
 write_csv(counts_by_random_id,here(processed_data_directory,paste0(file_name,"-participant-list.csv")))
@@ -36,7 +37,7 @@ exp_data <- exp_data %>%
 processed_data <- exp_data %>%
   filter(!is.na(Category)) %>%
   select(-success,-c(reflection1:file_name)) %>%
-  group_by(participant) %>%
+  group_by(participant_id) %>%
   mutate(
     trial_number=seq(n())
   ) %>%

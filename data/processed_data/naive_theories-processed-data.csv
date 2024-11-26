@@ -1,4 +1,4 @@
-rt,trial_type,trial_index,trial_number,plugin_version,time_elapsed,random_id,participant,stimulus,response,Category,Concept,T1,T2,CorrectAnswer,correct,is_right,reflection_1,reflection_2
+rt,trial_type,trial_index,trial_number,plugin_version,time_elapsed,random_id,participant_id,stimulus,response,Category,Concept,T1,T2,CorrectAnswer,correct,is_right,reflection_1,reflection_2
 5078,html-keyboard-response,6,1,2.0.0,25058,p03mqyeeyqu,seal,<b><font size=6>Mirrors reflect sound.</font></b>,z,Waves,Reflection,FALSE,TRUE,TRUE,TRUE,1,NA,no
 4744,html-keyboard-response,7,2,2.0.0,30303,p03mqyeeyqu,seal,<b><font size=6>Sounds can be dead or alive.</font></b>,z,Waves,Sound,FALSE,FALSE,FALSE,FALSE,0,NA,no
 1860,html-keyboard-response,8,3,2.0.0,32664,p03mqyeeyqu,seal,<b><font size=6>Sounds can be near or far.</font></b>,z,Waves,Sound,TRUE,FALSE,FALSE,FALSE,0,NA,no
