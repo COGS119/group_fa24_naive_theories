@@ -11,8 +11,10 @@ exp_data <- read_csv(here(processed_data_directory,paste0(file_name,"-alldata.cs
 
 #double check that participant ids are unique
 counts_by_random_id <- exp_data %>%
-  group_by(random_id) %>%
+  group_by(random_id,participant) %>%
   count()
+#output to track participants
+write_csv(counts_by_random_id,here(processed_data_directory,paste0(file_name,"-participant-list.csv")))
 
 #extract reflections
 reflection_1 <- exp_data %>%
@@ -50,23 +52,3 @@ processed_data <- exp_data %>%
 
 #store processed and prepped data
 write_csv(processed_data,here(processed_data_directory,paste0(file_name,"-processed-data.csv")))
-
-#quick look
-# subj_summary <- processed_data %>% 
-#   group_by(participant,T1,T2) %>% 
-#   summarize(avg=mean(is_right,na.rm=T),mean_rt=mean(rt[is_right==1&rt<20000]))
-# overall_summary <- subj_summary  %>% 
-#   group_by(T1,T2) %>% 
-#   summarize(N=n(),
-#             avg_acc=mean(avg),
-#             avg_rt=mean(mean_rt))
-# 
-# ggplot(subj_summary,aes(as.character(T1),mean_rt))+
-#   geom_boxplot()+
-#   geom_jitter(width=0.1)+
-#   facet_wrap(~as.character(T2))
-# 
-# ggplot(subj_summary,aes(as.character(T1),avg))+
-#   geom_boxplot()+
-#   geom_jitter(width=0.1)+
-#   facet_wrap(~as.character(T2))
